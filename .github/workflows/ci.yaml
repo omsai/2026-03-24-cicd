@@ -1,7 +1,14 @@
 ---
 name: My CI workflow
 
-on: push                        # yamllint disable-line rule:truthy
+on:                             # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - main
+  pull_request:
+  # To run workflows manually.  For example, you might want to update
+  # your publications on a website every few months.
+  workflow_dispatch:
 
 jobs:
 

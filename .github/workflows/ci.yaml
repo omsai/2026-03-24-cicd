@@ -12,33 +12,23 @@ on:                             # yamllint disable-line rule:truthy
 
 jobs:
 
-  hello:
-    name: My Hello job
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print Hello World
-        run: echo "Hello World"
-      - name: Second step
-        run: echo "second"
-
-  goodbye:
-    name: My Goodbye job
-    needs: hello
-    runs-on: windows-latest
-    steps:
-      - name: Print Goodbye
-        run: echo "Goodbye"
-
   test:
     name: Test the python package
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.14"]
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - python-version: "3.13"
+            platform: "macos-15"
+    runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v6
       - name: Setup a specific version of python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.10"
+          python-version: ${{ matrix.python-version }}
       - name: Install the package to run the tests
         run: pip install .[test]
       - name: Run the tests

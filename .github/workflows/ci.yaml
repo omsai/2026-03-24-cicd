@@ -21,3 +21,12 @@ jobs:
     steps:
       - name: Print Goodbye
         run: echo "Goodbye"
+
+  test:
+    name: Test the python package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install the package to run the tests
+        run: pip install .[test]
+      - name: Run the tests
+        run: pytest -vv

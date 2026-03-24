@@ -4,9 +4,20 @@ name: My CI workflow
 on: push                        # yamllint disable-line rule:truthy
 
 jobs:
+
   hello:
     name: My Hello job
     runs-on: ubuntu-latest
     steps:
       - name: Print Hello World
         run: echo "Hello World"
+      - name: Second step
+        run: echo "second"
+
+  goodbye:
+    name: My Goodbye job
+    needs: hello
+    runs-on: windows-latest
+    steps:
+      - name: Print Goodbye
+        run: echo "Goodbye"

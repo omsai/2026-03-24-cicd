@@ -31,8 +31,11 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install the package to run the tests
         run: pip install .[test]
+      - name: Pass information to a step
+        id: sender-step
+        run: echo "message='Using Python ${{ matrix.python-version }}'" >> $GITHUB_OUTPUT
       - if: matrix.python-version == '3.14'
         name: Conditional step
-        run: echo "Using Python 3.14"
+        run: echo ${{ steps.sender-step.output.message }}
       - name: Run the tests
         run: pytest -vv

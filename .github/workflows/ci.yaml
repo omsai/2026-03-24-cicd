@@ -19,7 +19,8 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v6
       - name: Install and run ruff
-        uses: astral-sh/ruff-action@4919ec5  # v3.6.1
+        # v3.6.1
+        uses: astral-sh/ruff-action@4919ec5cf1f49eff0871dbcea0da843445b837e6
 
   test:
     name: Test the python package

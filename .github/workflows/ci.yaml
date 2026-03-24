@@ -1,0 +1,8 @@
+---
+on: push                        # yamllint disable-line rule:truthy
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - runs: echo "Hello World"

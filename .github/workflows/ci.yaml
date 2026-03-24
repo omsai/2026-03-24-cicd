@@ -12,8 +12,18 @@ on:                             # yamllint disable-line rule:truthy
 
 jobs:
 
+  lint:
+    name: Lint the python package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v6
+      - name: Install and run ruff
+        uses: astral-sh/ruff-action@4919ec5  # v3.6.1
+
   test:
     name: Test the python package
+    needs: lint
     strategy:
       matrix:
         python-version: ["3.10", "3.14"]

@@ -34,6 +34,7 @@ jobs:
       - name: Pass information to a step
         id: sender-step
         run: echo "message='Using Python ${{ matrix.python-version }}'" >> $GITHUB_OUTPUT
+        shell: bash
       - if: matrix.python-version == '3.14'
         name: Conditional step
         run: echo ${{ steps.sender-step.outputs.message }}

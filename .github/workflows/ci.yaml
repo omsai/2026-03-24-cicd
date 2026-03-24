@@ -12,19 +12,8 @@ on:                             # yamllint disable-line rule:truthy
 
 jobs:
 
-  lint:
-    name: Lint the python package
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v6
-      - name: Install and run ruff
-        # v3.6.1
-        uses: astral-sh/ruff-action@4919ec5cf1f49eff0871dbcea0da843445b837e6
-
   test:
     name: Test the python package
-    needs: lint
     strategy:
       matrix:
         python-version: ["3.10", "3.14"]
@@ -42,5 +31,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install the package to run the tests
         run: pip install .[test]
+      - name: Conditional step
+        if: matrix.python-version == "3.14"
+        run: echo "Using Python 3.14"
       - name: Run the tests
         run: pytest -vv

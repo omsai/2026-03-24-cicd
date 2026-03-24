@@ -26,6 +26,12 @@ jobs:
     name: Test the python package
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v6
+      - name: Setup a specific version of python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.10"
       - name: Install the package to run the tests
         run: pip install .[test]
       - name: Run the tests
